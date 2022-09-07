@@ -1,15 +1,16 @@
 
 import readline from 'readline'
 
+
 const read = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
 
-const obj = {
+const board = {
     0: undefined,
     1: undefined,
-    2: 'X',
+    2: undefined,
     3: undefined,
     4: undefined,
     5: undefined,
@@ -18,29 +19,62 @@ const obj = {
     8: undefined
 }
 
-function game () {
-    for (let i = 0; i < Object.keys(obj).length; i++) {
-        if (obj[i] === undefined) {
+let gameFinished = false
+
+const game = async () => {
+    renderBoard()
+
+    if (!gameFinished) {
+        await move().then(pos => handleMove(pos))
+        checkResult()
+        game()
+    }
+}
+
+// Render game.
+function renderBoard () {
+    for (let i = 0; i < Object.keys(board).length; i++) {
+        if (board[i] === undefined) {
             console.log('[ ]')
-        } else if (obj[i] === 'X') {
+        } else if (board[i] === 'X') {
             console.log('[X]')
-        } else if (obj[i] === '0') {
+        } else if (board[i] === '0') {
             console.log('[0]')
         }
     }
-
-    
 }
 
 
 function checkResult () {
-    if (obj[0] === obj[1] === obj[2] === 'X') {
-        
+    if (board[0] === 'X' && board[1] === 'X' && board[2]) {
+        gameFinished = true
+        console.log("X won")
+    } else if (board[3] === 'X' && board[4] === 'X' && board[5]) {
+        gameFinished = true
+        console.log("X won")
+    } else if (board[6] === 'X' && board[7] === 'X' && board[8]) {
+        gameFinished = true
+        console.log("X won")
     }
 }
 
-read.question('skriv nåt', answer => {
-    console.log(answer)
-})
+const handleMove = (pos) => {
+    if (board[pos] === undefined) {
+        board[pos] = 'X'
+    } else {
+        console.log("Ruta upptagen")
+        move()
+    }
+}
+
+
+const move = () => {
+    return new Promise(resolve => {
+        read.question("Välj ruta (0-8)", function(answer) {
+            resolve(answer)
+        });
+    })
+}
+
 
 game()
