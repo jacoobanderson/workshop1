@@ -1,0 +1,24 @@
+{
+  "name": "workshop1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tictactoe.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node tictactoe.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacoobanderson/workshop1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacoobanderson/workshop1/issues"
+  },
+  "homepage": "https://github.com/jacoobanderson/workshop1#readme",
+  "dependencies": {
+    "readline": "^1.3.0"
+  }
+}
